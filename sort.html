@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sort words by length</title>
+  </head>
+  <body>
+    <script>
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = '.txt';
+      fileInput.addEventListener('change', handleFileSelect);
+
+      function handleFileSelect(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function() {
+          const content = reader.result;
+          const words = content.split(/\s+/);
+          const sortedWordsByLength = {};
+          for (const word of words) {
+            const length = word.length;
+            if (!sortedWordsByLength[length]) {
+              sortedWordsByLength[length] = [];
+            }
+            sortedWordsByLength[length].push(word);
+          }
+          console.log(sortedWordsByLength);
+        };
+        reader.readAsText(file);
+      }
+
+      document.body.appendChild(fileInput);
+    </script>
+  </body>
+</html>

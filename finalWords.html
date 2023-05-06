@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Traverse object paths</title>
+    <script src="wordPaths.js"></script>
+  </head>
+  <body>
+
+    <script>
+const output = {};
+
+for (const arr of wordPaths) {
+  const length = arr.length;
+  if (!output[length]) {
+    output[length] = [arr[arr.length - 1]];
+  } else if (!output[length].includes(arr[arr.length - 1])) {
+    output[length].push(arr[arr.length - 1]);
+  }
+}
+
+console.log(output);
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
