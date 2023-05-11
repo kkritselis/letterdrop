@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Check words for rearrangements</title>
+    <script src="words.js"></script>
+  </head>
+  <body>
+    <script>
+      const wordLengths = Object.keys(words).sort((a, b) => a - b);
+      for (let i = 0; i < wordLengths.length - 1; i++) {
+        const currentLength = wordLengths[i];
+        const nextLength = wordLengths[i + 1];
+        const currentWords = words[currentLength];
+        const nextWords = words[nextLength];
+        const newWords = {};
+        for (const currentWord of currentWords) {
+          for (let j = 0; j < 26; j++) {
+            const newLetter = String.fromCharCode('a'.charCodeAt(0) + j);
+            const newWord = currentWord + newLetter;
+            const sortedNewWord = newWord.split('').sort().join('');
+            for (const nextWord of nextWords) {
+              const sortedNextWord = nextWord.split('').sort().join('');
+              if (sortedNewWord === sortedNextWord) {
+                if (!newWords[currentWord]) {
+                  newWords[currentWord] = [nextWord];
+                } else {
+                  newWords[currentWord].push(nextWord);
+                }
+                break;
+              }
+            }
+          }
+        }
+        for (const currentWord in newWords) {
+          words[currentLength][words[currentLength].indexOf(currentWord)] = {
+            [currentWord]: newWords[currentWord]
+          };
+        }
+        words[currentLength] = words[currentLength].filter(word => typeof word !== 'string');
+      }
+      console.log(words);
+    </script>
+  </body>
+</html>

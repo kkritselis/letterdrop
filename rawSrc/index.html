@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Traverse object paths</title>
+    <script src="wordsproc.js"></script>
+  </head>
+  <body>
+    <script>
+
+        function buildPaths(currentNode, currentPath, paths) {
+            const nextWords = wordSet[currentNode];
+
+            if (!nextWords || nextWords.length === 0) {
+                paths.push(currentPath);
+                return;
+            }
+
+            for (const nextWord of nextWords) {
+                buildPaths(nextWord, currentPath.concat(nextWord), paths);
+            }
+        }
+
+        function findAllPaths(startNodes) {
+            const paths = [];
+            for (const node of startNodes) {
+                buildPaths(node, [node], paths);
+            }
+            return paths;
+        }
+
+        function runTraversal() {
+            const startNodes = ['a', 'i'];
+            const result = findAllPaths(startNodes);
+            document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Word Tree Traversal</h1>
+    <button onclick="runTraversal()">Run Traversal</button>
+    <pre id="result"></pre>
+</body>
+</html>

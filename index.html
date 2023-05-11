@@ -1,44 +1,16 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>Traverse object paths</title>
-    <script src="wordsproc.js"></script>
-  </head>
-  <body>
-    <script>
-
-        function buildPaths(currentNode, currentPath, paths) {
-            const nextWords = wordSet[currentNode];
-
-            if (!nextWords || nextWords.length === 0) {
-                paths.push(currentPath);
-                return;
-            }
-
-            for (const nextWord of nextWords) {
-                buildPaths(nextWord, currentPath.concat(nextWord), paths);
-            }
-        }
-
-        function findAllPaths(startNodes) {
-            const paths = [];
-            for (const node of startNodes) {
-                buildPaths(node, [node], paths);
-            }
-            return paths;
-        }
-
-        function runTraversal() {
-            const startNodes = ['a', 'i'];
-            const result = findAllPaths(startNodes);
-            document.getElementById('result').textContent = JSON.stringify(result, null, 2);
-        }
-    </script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scramble Up!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.js"></script>
+    <script src="wordLib.js"></script>
+    <script src="wordList.js"></script>
+    <script src="sketch.js"></script>
 </head>
 <body>
-    <h1>Word Tree Traversal</h1>
-    <button onclick="runTraversal()">Run Traversal</button>
-    <pre id="result"></pre>
+    
 </body>
 </html>
